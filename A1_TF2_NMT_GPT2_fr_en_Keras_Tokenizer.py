@@ -210,6 +210,11 @@ TRG_tokenizer = tf.keras.preprocessing.text.Tokenizer(filters = filters, oov_tok
 SRC_tokenizer.fit_on_texts(special_tkns + src_sentence)
 TRG_tokenizer.fit_on_texts(special_tkns + trg_sentence)
 
+src_to_index = SRC_tokenizer.word_index
+index_to_src = SRC_tokenizer.index_word
+
+tar_to_index = TRG_tokenizer.word_index
+index_to_tar = TRG_tokenizer.index_word
 
 n_enc_vocab = len(SRC_tokenizer.word_index) + 7
 n_dec_vocab = len(TRG_tokenizer.word_index) + 6
@@ -253,7 +258,14 @@ D12. Tokenize
 tokenized_inputs      = SRC_tokenizer.texts_to_sequences(src_sentence)
 tokenized_outputs     = TRG_tokenizer.texts_to_sequences(trg_sentence)
 
-# 9. Build GPT-2 Inputs, Outputs
+'''
+D13. [Not Used] Explore the tokenized datasets
+'''
+
+'''
+D14. Build GPT-2 Inputs, Outputs, Segments
+'''
+
 pad_idx = SRC_tokenizer.texts_to_sequences(['<PAD>'])
 
 tkn_sources   = []
@@ -497,6 +509,13 @@ class PositionwiseFeedforwardLayer(tf.keras.layers.Layer):
         output = self.linear_2(output)
         return output
 
+"""
+C05.[Not Used]  Encoder layer
+"""
+
+"""
+C06. [Not Used] Encoder
+"""
     
 """
 C07. Decoder layer
@@ -576,8 +595,8 @@ class Decoder(tf.keras.layers.Layer):
 
         output = self.dropout(emb, training=training)
 
-        # 4. Look ahead Mask is created from **decoder inputs** 
-        # 5. Decoder layers are stacked.
+        # 4. Look ahead Mask is created from **decoder inputs**
+        # 5. Decoder layers are stacked
         for i in range(self.n_layers):
             output, block1 = self.dec_layers[i](output, training, look_ahead_mask)
 
