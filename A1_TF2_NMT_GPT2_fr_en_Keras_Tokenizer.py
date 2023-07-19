@@ -21,7 +21,7 @@ tf.random.set_seed(SEED)
 AUTO = tf.data.experimental.AUTOTUNE
 
 '''
-D2. Import Raw Dataset
+D2. Import Raw Dataset from www.manythings.org
 '''
 
 ! wget http://www.manythings.org/anki/fra-eng.zip
@@ -179,7 +179,7 @@ print(raw_src[:5])
 print(raw_trg[:5])
 
 '''
-D9. Add <SOS>, <EOS> for source and target
+D9. Tokenizer define for GPT-2. Special tokens are required.
 '''
 SRC_df = pd.DataFrame(raw_src)
 TRG_df = pd.DataFrame(raw_trg)
